@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CreatePlanScreen extends StatefulWidget {
+  const CreatePlanScreen({super.key});
+
   @override
-  _CreatePlanScreenState createState() => _CreatePlanScreenState();
+  CreatePlanScreenState createState() => CreatePlanScreenState();
 }
 
-class _CreatePlanScreenState extends State<CreatePlanScreen> {
+class CreatePlanScreenState extends State<CreatePlanScreen> {
   final TextEditingController _titleController = TextEditingController();
-  List<Map<String, dynamic>> _planItems = [];
+  final List<Map<String, dynamic>> _planItems = [];
   bool _isAddingItem = false;
 
   final TextEditingController _categoryController = TextEditingController();
@@ -36,22 +38,22 @@ class _CreatePlanScreenState extends State<CreatePlanScreen> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill out all fields before saving.')),
+        const SnackBar(
+            content: Text('Please fill out all fields before saving.')),
       );
     }
   }
 
   void _savePlan() {
-
     if (_titleController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please provide a title for the plan.')),
       );
       return;
     }
-    print('ZZZZ');
-    print('Plan Title: ${_titleController.text}');
-    print('Plan Items: $_planItems');
+    // print('ZZZZ');
+    // print('Plan Title: ${_titleController.text}');
+    // print('Plan Items: $_planItems');
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Plan saved successfully!')),
@@ -86,17 +88,14 @@ class _CreatePlanScreenState extends State<CreatePlanScreen> {
           ElevatedButton(
             onPressed: _savePlan,
             child: const Row(
-              children: [
-                Text("Save"),
-                SizedBox(width: 5),
-                Icon(Icons.save)
-              ],
+              children: [Text("Save"), SizedBox(width: 5), Icon(Icons.save)],
             ),
           ),
           const SizedBox(width: 20)
         ],
       ),
-      body: SingleChildScrollView( // Wrap with SingleChildScrollView
+      body: SingleChildScrollView(
+        // Wrap with SingleChildScrollView
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +129,8 @@ class _CreatePlanScreenState extends State<CreatePlanScreen> {
                               border: OutlineInputBorder(),
                             ),
                             onSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_categoryFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(_categoryFocusNode);
                             },
                           ),
                           const SizedBox(height: 10),
@@ -142,7 +142,8 @@ class _CreatePlanScreenState extends State<CreatePlanScreen> {
                               border: OutlineInputBorder(),
                             ),
                             onSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_durationFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(_durationFocusNode);
                             },
                           ),
                           const SizedBox(height: 10),
@@ -173,9 +174,9 @@ class _CreatePlanScreenState extends State<CreatePlanScreen> {
                       setState(() {
                         _isAddingItem = true;
                       });
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        FocusScope.of(context).requestFocus(_itemTitleFocusNode);
-                      });
+                      // Future.delayed(const Duration(milliseconds: 100), () {
+                      //   FocusScope.of(context).requestFocus(_itemTitleFocusNode);
+                      // });
                     },
                     child: const Text('Add Item'),
                   ),

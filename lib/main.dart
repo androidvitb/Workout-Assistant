@@ -3,12 +3,15 @@ import 'package:workout_assistant/create_plan.dart';
 // import 'package:new_project/services/local_database.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure Flutter bindings are initialized
   // await LocalDatabase.instance.initializeDatabase(); // Initialize SQLite or local database
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,23 +20,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SidebarNavigation(),
+      home: const SidebarNavigation(),
     );
   }
 }
 
 class SidebarNavigation extends StatefulWidget {
+  const SidebarNavigation({super.key});
+
   @override
-  _SidebarNavigationState createState() => _SidebarNavigationState();
+  SidebarNavigationState createState() => SidebarNavigationState();
 }
 
-class _SidebarNavigationState extends State<SidebarNavigation> {
+class SidebarNavigationState extends State<SidebarNavigation> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(),
-    CreatePlanScreen(),
-    SettingsScreen(),
+    const HomeScreen(),
+    const CreatePlanScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -46,7 +51,7 @@ class _SidebarNavigationState extends State<SidebarNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workout Assistant'),
+        title: const Text('Workout Assistant'),
       ),
       body: _pages[_selectedIndex],
       drawer: Drawer(
@@ -66,24 +71,24 @@ class _SidebarNavigationState extends State<SidebarNavigation> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
               onTap: () {
                 _onItemTapped(0);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.create),
-              title: Text('Create Plan'),
+              leading: const Icon(Icons.create),
+              title: const Text('Create Plan'),
               onTap: () {
                 _onItemTapped(1);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -97,6 +102,8 @@ class _SidebarNavigationState extends State<SidebarNavigation> {
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -109,6 +116,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
