@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_assistant/other_dart_files/firebase_db.dart';
+import 'package:workout_assistant/dart_files/firebase_db.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool isNewUser = false;
-
+  String sendingUsername = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,17 +83,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (await verifyUser(usernameController.text,
                               passwordController.text) ==
                           false) {
+                        sendingUsername = usernameController.text;
                         makeNewUser(
                             usernameController.text, passwordController.text);
                       }
                     } else {
                       if (await verifyUser(
                           usernameController.text, passwordController.text)) {
+                        sendingUsername = usernameController.text;
                         print("Yes user got logged in");
                       }
                     }
 
-                    Navigator.pop(context);
+                    // String sendingPassword = passwordController.text;
+                    if (sendingUsername != "") {
+                      Navigator.pop(context, sendingUsername);
+                    } else {
+                      Navigator.pop(context, "User");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

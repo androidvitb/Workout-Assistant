@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
-import 'package:workout_assistant/other_dart_files/create_plan.dart';
-import 'package:workout_assistant/other_dart_files/firebase_db.dart';
-import 'package:workout_assistant/other_dart_files/login.dart';
+import 'package:workout_assistant/dart_files/create_plan.dart';
+import 'package:workout_assistant/dart_files/firebase_db.dart';
+import 'package:workout_assistant/dart_files/login.dart';
+import 'package:workout_assistant/dart_files/change_notifier.dart';
 
 // import 'package:new_project/services/local_database.dart';
 
@@ -12,12 +14,23 @@ void main() async {
       .ensureInitialized(); // Ensure Flutter bindings are initialized
   await Firebase.initializeApp();
   // await LocalDatabase.instance.initializeDatabase(); // Initialize SQLite or local database
-  runApp(const MyApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +53,6 @@ class SidebarNavigation extends StatefulWidget {
 
 class SidebarNavigationState extends State<SidebarNavigation> {
   int _selectedIndex = 0;
-  String? userName = 'User';
 
   final List<Widget> _pages = [
     const HomeScreen(),
@@ -60,16 +72,28 @@ class SidebarNavigationState extends State<SidebarNavigation> {
       appBar: AppBar(
         title: const Text('Workout Assistant'),
         actions: [
+          Consumer<UserProvider>(
+            builder: (context, userProvider, child) {
+              return TextButton(
+                onPressed: () {},
+                child: Text(userProvider.username),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.person),
             autofocus: true,
             onPressed: () async {
-              userName = await Navigator.push(
+              final username = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const LoginScreen(),
                 ),
               );
+
+              if (username != null) {
+                context.read<UserProvider>().setUsername(username);
+              }
             },
           ),
         ],
