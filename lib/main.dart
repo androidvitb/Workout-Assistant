@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:workout_assistant/create_plan.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:workout_assistant/other_dart_files/create_plan.dart';
+import 'package:workout_assistant/other_dart_files/firebase_db.dart';
+import 'package:workout_assistant/other_dart_files/login.dart';
+
 // import 'package:new_project/services/local_database.dart';
 
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Ensure Flutter bindings are initialized
+  await Firebase.initializeApp();
   // await LocalDatabase.instance.initializeDatabase(); // Initialize SQLite or local database
   runApp(const MyApp());
 }
@@ -34,6 +40,7 @@ class SidebarNavigation extends StatefulWidget {
 
 class SidebarNavigationState extends State<SidebarNavigation> {
   int _selectedIndex = 0;
+  String? userName = 'User';
 
   final List<Widget> _pages = [
     const HomeScreen(),
@@ -52,6 +59,20 @@ class SidebarNavigationState extends State<SidebarNavigation> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workout Assistant'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            autofocus: true,
+            onPressed: () async {
+              userName = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: _pages[_selectedIndex],
       drawer: Drawer(
