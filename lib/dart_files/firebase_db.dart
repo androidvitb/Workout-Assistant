@@ -1,5 +1,4 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 
 final DatabaseReference _database = FirebaseDatabase.instance
     .refFromURL('https://workout-planner-shashi-default-rtdb.firebaseio.com/');
@@ -21,7 +20,6 @@ Future<bool> verifyUser(String name, String password) async {
     DataSnapshot dataSnapshot = await _database.child("userInfo").get();
 
     if (dataSnapshot.exists) {
-      // Loop through each child node under "users"
       final users = dataSnapshot.value as Map<dynamic, dynamic>;
 
       users.forEach((key, value) {
@@ -67,11 +65,9 @@ Future<Map<String, Map<String, dynamic>>> getData(String username) async {
       final users = dataSnapshot.value as Map<dynamic, dynamic>;
 
       users.forEach((key, value) {
-        final planData =
-            value as Map<dynamic, dynamic>; // Extract the plan data
+        final planData = value as Map<dynamic, dynamic>;
         planData.forEach((planKey, planValue) {
           final plan = planValue as Map<dynamic, dynamic>;
-          // Pass the key (e.g., "a") as the title for the widget
           test[planKey] = {
             "item": plan["title"] ?? "N/A",
             "category": plan["category"] ?? "N/A",
