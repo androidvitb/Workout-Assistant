@@ -62,11 +62,11 @@ class SidebarNavigationState extends State<SidebarNavigation> {
       case 0:
         return const HomeScreen();
       case 1:
-        return CreatePlanScreen(username: username);
-      case 2:
-        return const SettingsScreen();
-      case 3:
         return DisplayDataScreen(username: username);
+      case 2:
+        return CreatePlanScreen(username: username);
+      case 3:
+        return const SettingsScreen();
       default:
         return const HomeScreen();
     }
@@ -138,24 +138,24 @@ class SidebarNavigationState extends State<SidebarNavigation> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.create),
-              title: const Text('Create Plan'),
+              leading: const Icon(Icons.dataset),
+              title: const Text('My Plans'),
               onTap: () {
                 _onItemTapped(1);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              leading: const Icon(Icons.create),
+              title: const Text('Create Plan'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: const Icon(Icons.dataset),
-              title: const Text('Show Data'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
