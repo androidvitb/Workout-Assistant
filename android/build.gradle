@@ -1,8 +1,22 @@
+buildscript {
+    repositories {
+        google() // Make sure Google repository is included
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.4' // Ensure you have this classpath as well
+        classpath 'com.google.gms:google-services:4.3.15'  // Correct place for this line
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
+//     dependencies {
+//         classpath 'com.google.gms:google-services:4.3.15'
+//     }
 }
 
 rootProject.buildDir = "../build"
