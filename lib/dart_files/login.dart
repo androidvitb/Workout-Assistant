@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (await verifyUser(
                           usernameController.text, passwordController.text)) {
                         sendingUsername = usernameController.text;
-                        print("Yes user got logged in");
+                        // print("Yes user got logged in");
                       }
                     }
 

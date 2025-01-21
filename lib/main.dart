@@ -3,9 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'package:workout_assistant/dart_files/create_plan.dart';
-import 'package:workout_assistant/dart_files/firebase_db.dart';
+import 'package:workout_assistant/dart_files/home_screen.dart';
+import 'package:workout_assistant/dart_files/setting_screen.dart';
+import 'package:workout_assistant/dart_files/show_data.dart';
 import 'package:workout_assistant/dart_files/login.dart';
 import 'package:workout_assistant/dart_files/change_notifier.dart';
+// import 'package:workout_assistant/dart_files/firebase_db.dart';
 
 // import 'package:new_project/services/local_database.dart';
 
@@ -54,11 +57,20 @@ class SidebarNavigation extends StatefulWidget {
 class SidebarNavigationState extends State<SidebarNavigation> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const CreatePlanScreen(),
-    const SettingsScreen(),
-  ];
+  Widget _getPage(int index, String username) {
+    switch (index) {
+      case 0:
+        return const HomeScreen();
+      case 1:
+        return CreatePlanScreen(username: username);
+      case 2:
+        return const SettingsScreen();
+      case 3:
+        return DisplayDataScreen(username: username);
+      default:
+        return const HomeScreen();
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -68,6 +80,8 @@ class SidebarNavigationState extends State<SidebarNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final username = context.watch<UserProvider>().username;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workout Assistant'),
@@ -98,7 +112,7 @@ class SidebarNavigationState extends State<SidebarNavigation> {
           ),
         ],
       ),
-      body: _pages[_selectedIndex],
+      body: _getPage(_selectedIndex, username),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -139,36 +153,16 @@ class SidebarNavigationState extends State<SidebarNavigation> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.dataset),
+              title: const Text('Show Data'),
+              onTap: () {
+                _onItemTapped(3);
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Home Screen',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Settings Screen',
-        style: TextStyle(fontSize: 24),
       ),
     );
   }

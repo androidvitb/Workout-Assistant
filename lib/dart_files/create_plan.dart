@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:workout_assistant/dart_files/firebase_db.dart';
 
 class CreatePlanScreen extends StatefulWidget {
-  const CreatePlanScreen({super.key});
+  final String username;
+
+  const CreatePlanScreen({super.key, required this.username});
 
   @override
   CreatePlanScreenState createState() => CreatePlanScreenState();
@@ -54,6 +57,9 @@ class CreatePlanScreenState extends State<CreatePlanScreen> {
     // print('ZZZZ');
     // print('Plan Title: ${_titleController.text}');
     // print('Plan Items: $_planItems');
+    if (widget.username != "User") {
+      pushData(widget.username, _titleController.text, _planItems);
+    }
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Plan saved successfully!')),
@@ -85,6 +91,7 @@ class CreatePlanScreenState extends State<CreatePlanScreen> {
       appBar: AppBar(
         title: const Text('Create Plan'),
         actions: [
+          // TextButton(onPressed: () {}, child: Text(widget.username)),
           ElevatedButton(
             onPressed: _savePlan,
             child: const Row(
