@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive/hive.dart';
 
 import 'package:workout_assistant/dart_files/create_plan.dart';
 import 'package:workout_assistant/dart_files/home_screen.dart';
@@ -8,19 +10,22 @@ import 'package:workout_assistant/dart_files/setting_screen.dart';
 import 'package:workout_assistant/dart_files/show_data.dart';
 import 'package:workout_assistant/dart_files/login.dart';
 import 'package:workout_assistant/dart_files/change_notifier.dart';
+// import 'package:workout_assistant/dart_files/hive_logic.dart';
 // import 'package:workout_assistant/dart_files/firebase_db.dart';
 
 // import 'package:new_project/services/local_database.dart';
 
 void main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('myBox');
   await Firebase.initializeApp();
-  // await LocalDatabase.instance.initializeDatabase(); // Initialize SQLite or local database
 
+  // Initialize UserProvider
   runApp(
     ChangeNotifierProvider(
-      create: (context) => UserProvider(),
+      create: (context) =>
+          UserProvider()..initializeUser(), // Initialize the user here
       child: const MyApp(),
     ),
   );
@@ -80,6 +85,7 @@ class SidebarNavigationState extends State<SidebarNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    ///////Chat GPT -->  here assign the value of username fetching from the hive
     final username = context.watch<UserProvider>().username;
 
     return Scaffold(
@@ -96,7 +102,6 @@ class SidebarNavigationState extends State<SidebarNavigation> {
           ),
           IconButton(
             icon: const Icon(Icons.person),
-            autofocus: true,
             onPressed: () async {
               final username = await Navigator.push(
                 context,
@@ -106,6 +111,7 @@ class SidebarNavigationState extends State<SidebarNavigation> {
               );
 
               if (username != null) {
+                ////////  Chat GPT --> here set the username as the username in hive by clearing previous and setting new value to username
                 context.read<UserProvider>().setUsername(username);
               }
             },
