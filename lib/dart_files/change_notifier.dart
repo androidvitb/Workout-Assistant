@@ -22,10 +22,10 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> clearUsernameFromHive() async {
-  //   var box = await Hive.openBox('myBox');
-  //   await box.delete('username');
-  //   _username = '';
-  //   notifyListeners();
-  // }
+  Future<void> clearUsernameFromHive() async {
+    var box = await Hive.openBox('myBox');
+    await box.delete('username');
+    _username = '';
+    notifyListeners();
+  }
 }
