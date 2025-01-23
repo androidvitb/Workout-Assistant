@@ -23,7 +23,7 @@ class _DisplayDataScreenState extends State<DisplayDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Display Data (${widget.username})'),
+        title: Text(widget.username),
       ),
       body: FutureBuilder<Map<String, Map<String, dynamic>>>(
         future: futureData,

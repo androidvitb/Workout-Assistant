@@ -160,6 +160,17 @@ class SidebarNavigationState extends State<SidebarNavigation> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                context.read<UserProvider>().clearUsernameFromHive();
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
           ],
         ),
       ),
