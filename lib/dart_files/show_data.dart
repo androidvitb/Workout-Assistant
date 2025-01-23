@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_assistant/dart_files/firebase_db.dart';
+import 'package:workout_assistant/dart_files/workout_session.dart';
 
 class DisplayDataScreen extends StatefulWidget {
   final String username;
@@ -78,28 +79,61 @@ class CustomDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () => _showConfirmationDialog(context),
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 8.0),
-            Text("Item: $item"),
-            Text("Category: $category"),
-            Text("Duration: $duration minutes"),
-          ],
+              const SizedBox(height: 8.0),
+              Text("Item: $item"),
+              Text("Category: $category"),
+              Text("Duration: $duration minutes"),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Planner"),
+          content: const Text("Do you want to start this workout session?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("No"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => WorkoutSession(
+                        duration: duration), // Navigate to NextScreen
+                  ),
+                );
+              },
+              child: const Text("Yes"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
