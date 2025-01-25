@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:workout_assistant/dart_files/firebase_db.dart';
 
+// this login screen is shown when user clicks on the icon on the top right corner of the app
+//
+// and after all the process the screen returns a string value which is either "User" or <username> if all the conditions
+// are fulfilled for valid login of the username entered in the login screen and many factors matters read the below to know more
+//
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 

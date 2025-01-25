@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+// currently this screen only receives the duration
+// we can change and get all the other details and the modify this page
+// ...............add your logic for further development
+
 class WorkoutSession extends StatefulWidget {
   final int duration;
   const WorkoutSession({super.key, required this.duration});
