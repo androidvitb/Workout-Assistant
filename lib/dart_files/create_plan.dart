@@ -47,6 +47,8 @@ class CreatePlanScreenState extends State<CreatePlanScreen> {
     }
   }
 
+  // this  _savePlan function will push the plan to firebase and then stored in custom format for to fetch the data easily
+
   void _savePlan() {
     if (_titleController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -54,9 +56,6 @@ class CreatePlanScreenState extends State<CreatePlanScreen> {
       );
       return;
     }
-    // print('ZZZZ');
-    // print('Plan Title: ${_titleController.text}');
-    // print('Plan Items: $_planItems');
     if (widget.username != "User") {
       pushData(widget.username, _titleController.text, _planItems);
     }
@@ -91,7 +90,6 @@ class CreatePlanScreenState extends State<CreatePlanScreen> {
       appBar: AppBar(
         title: const Text('Create Plan'),
         actions: [
-          // TextButton(onPressed: () {}, child: Text(widget.username)),
           ElevatedButton(
             onPressed: _savePlan,
             child: const Row(
