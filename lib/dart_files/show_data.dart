@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:workout_assistant/dart_files/firebase_db.dart';
 import 'package:workout_assistant/dart_files/workout_session.dart';
 
+//
+// this take care of logic of how the data which is fetched will be printed in screen for user to see
+// here i have written the logic for the database in which i am storing the data as per my
+// format of storing
+//
+// if you want to change that the look into firebase_db.dart
+//
+// this show the data using a listbuilder as for to get a single plan from whole data then putting
+// it into a list then do the same for all other datas then display it.
+//
+// and on clicking a list on the page there is a function which will redirect the user
+// to workout session page where we can send the data of the listtile user clicked
+//
+// for further development of this app you can continue from here:
+//
+// 1. send all detail of the listtile user clicked
+// 2. then modify the workout_session.dart ............
+
 class DisplayDataScreen extends StatefulWidget {
   final String username;
 

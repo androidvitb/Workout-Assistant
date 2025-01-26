@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// importing screens
 import 'package:workout_assistant/dart_files/create_plan.dart';
 import 'package:workout_assistant/dart_files/home_screen.dart';
 import 'package:workout_assistant/dart_files/setting_screen.dart';
@@ -80,12 +81,16 @@ class SidebarNavigationState extends State<SidebarNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    // this username is what we will see in appbar
+    // and this is always representing the user which is logged in by written logic
     final username = context.watch<UserProvider>().username;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workout Assistant'),
         actions: [
+          // username which we will see in appbar and
+          // using provider so that we can automatically listen to any change in value of username
           Consumer<UserProvider>(
             builder: (context, userProvider, child) {
               return TextButton(
@@ -94,6 +99,7 @@ class SidebarNavigationState extends State<SidebarNavigation> {
               );
             },
           ),
+          // login button
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () async {

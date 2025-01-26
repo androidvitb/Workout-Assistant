@@ -1,5 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 
+// this url in this is my personal firebase "realtime database" link so if you are cloning this project then
+//
+// 1. you will have to make your own personal firebase project then make a app in it then paste the
+// google-services.json in the "android/app" folder  and then paste your own link in place of mine.
+//
+// 2. or you can mail me to get the google-services.json and directly paste it in "android/app" then you are all set
+
 final DatabaseReference _database = FirebaseDatabase.instance
     .refFromURL('https://workout-planner-shashi-default-rtdb.firebaseio.com/');
 
