@@ -143,6 +143,9 @@ class CustomDataWidget extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => WorkoutSession(
+                        title: title,
+                        item: item,
+                        category: category,
                         duration: duration), // Navigate to NextScreen
                   ),
                 );
