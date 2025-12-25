@@ -4,7 +4,7 @@ Workout Assistant is a Flutter-based application designed to simplify and enhanc
 
 ---
 
-### **Repository Under**: AcWoC'25  
+### **Repository Under**: AcWoC'26
 ### **Club**: Android Club, VIT Bhopal University  
 
 ---
